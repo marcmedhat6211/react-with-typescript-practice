@@ -1,3 +1,6 @@
+import Todo from "../models/todo";
+import TodoItem from "./TodoItem";
+
 /**
  * The React.FC is a Generic type (FC stands for Functional Component)
  * By defining that the Todos const is of type React.FC, now typescript understands that this is a function that will always receive a props object which will always have a key named 'children'
@@ -6,11 +9,11 @@
  * We can make say that it is optianl to have an items key in the props object by adding a '?' after the items keyword
  *      React.FC<{items?: string[]}>
  */
-const Todos: React.FC<{ items: string[] }> = (props) => {
+const Todos: React.FC<{ items: Todo[] }> = (props) => {
   return (
     <ul>
       {props.items.map((item) => (
-        <li key={item}>{item}</li>
+        <TodoItem key={item.id} text={item.text} />
       ))}
     </ul>
   );
