@@ -2,7 +2,14 @@ import React from "react";
 
 import { useRef } from "react";
 
-const NewTodo = () => {
+/**
+ * Here we are specifying the type of this functional component
+ * and the type of its props is an object which is a function that returns a void value
+ * and below is the syntax for this definition
+ */
+const NewTodo: React.FC<{ onAddTodo: (enteredText: string) => void }> = (
+  props
+) => {
   // here you have to tell the ref whih input type it is going to be connected with
   // and you have to give it an initial value (because what if it is connected to another input)
   const todoTextInputRef = useRef<HTMLInputElement>(null);
@@ -21,13 +28,15 @@ const NewTodo = () => {
       // add error
       return;
     }
+
+    props.onAddTodo(enteredText);
   };
 
   return (
     <form onSubmit={submitHandler}>
       <label htmlFor="text">Todo text</label>
       <input type="text" id="text" ref={todoTextInputRef} />
-      <button type="button">Add Todo</button>
+      <button type="submit">Add Todo</button>
     </form>
   );
 };
