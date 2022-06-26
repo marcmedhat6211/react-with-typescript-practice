@@ -24,6 +24,8 @@ function App() {
     //   return prevState.concat(newTodo);
     // });
     // setTodos([...todos, newTodo]);
+
+    //concat returns a new array
     setTodos((prevState) => {
       return prevState.concat(newTodo);
     });
