@@ -1,5 +1,9 @@
-import Todo from "../models/todo";
+import React, { useContext } from "react";
+
+// import Todo from "../models/todo";
 import TodoItem from "./TodoItem";
+import { TodosContext } from "../store/todos-context";
+
 import classes from "./Todos.module.css";
 
 /**
@@ -10,13 +14,12 @@ import classes from "./Todos.module.css";
  * We can make say that it is optianl to have an items key in the props object by adding a '?' after the items keyword
  *      React.FC<{items?: string[]}>
  */
-const Todos: React.FC<{
-  items: Todo[];
-  onRemoveTodo: (todoId: string) => void;
-}> = (props) => {
+const Todos: React.FC = (props) => {
+  const todosCtx = useContext(TodosContext);
+
   return (
     <ul className={classes.todos}>
-      {props.items.map((item) => (
+      {/* {props.items.map((item) => (
         <TodoItem
           key={item.id}
           id={item.id}
@@ -24,6 +27,14 @@ const Todos: React.FC<{
           // here we used the bind method to pre configure this method for future calls
           // the first parameter specifies the this keyword and the second parameter is the first parameter this function is going to receive when it's called
           onRemoveTodo={props.onRemoveTodo.bind(null, item.id)}
+        />
+      ))} */}
+      {todosCtx.items.map((item) => (
+        <TodoItem
+          key={item.id}
+          id={item.id}
+          text={item.text}
+          onRemoveTodo={todosCtx.removeTodo.bind(null, item.id)}
         />
       ))}
     </ul>

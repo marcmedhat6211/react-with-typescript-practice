@@ -1,16 +1,17 @@
 import React from "react";
 import classes from "./NewTodo.module.css";
 
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { TodosContext } from "../store/todos-context";
 
 /**
  * Here we are specifying the type of this functional component
  * and the type of its props is an object which is a function that returns a void value
  * and below is the syntax for this definition
  */
-const NewTodo: React.FC<{ onAddTodo: (enteredText: string) => void }> = (
-  props
-) => {
+const NewTodo: React.FC = (props) => {
+  const todosCtx = useContext(TodosContext);
+
   // here you have to tell the ref whih input type it is going to be connected with
   // and you have to give it an initial value (because what if it is connected to another input)
   const todoTextInputRef = useRef<HTMLInputElement>(null);
@@ -30,7 +31,7 @@ const NewTodo: React.FC<{ onAddTodo: (enteredText: string) => void }> = (
       return;
     }
 
-    props.onAddTodo(enteredText);
+    todosCtx.addTodo(enteredText);
   };
 
   return (
