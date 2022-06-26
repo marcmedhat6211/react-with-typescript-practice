@@ -17,6 +17,12 @@ function App() {
   //   new Todo("t2", "Learn Typescript"),
   // ];
 
+  const removeTodoHandler = (todoId: string) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== todoId);
+    });
+  };
+
   const addTodoHandler = (todoText: string) => {
     const newTodo = new Todo(new Date().toISOString(), todoText);
 
@@ -34,7 +40,7 @@ function App() {
   return (
     <div>
       <NewTodo onAddTodo={addTodoHandler} />
-      <Todos items={todos} />
+      <Todos items={todos} onRemoveTodo={removeTodoHandler} />
     </div>
   );
 }

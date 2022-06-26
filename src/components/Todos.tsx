@@ -10,11 +10,21 @@ import classes from "./Todos.module.css";
  * We can make say that it is optianl to have an items key in the props object by adding a '?' after the items keyword
  *      React.FC<{items?: string[]}>
  */
-const Todos: React.FC<{ items: Todo[] }> = (props) => {
+const Todos: React.FC<{
+  items: Todo[];
+  onRemoveTodo: (todoId: string) => void;
+}> = (props) => {
   return (
     <ul className={classes.todos}>
       {props.items.map((item) => (
-        <TodoItem key={item.id} text={item.text} />
+        <TodoItem
+          key={item.id}
+          id={item.id}
+          text={item.text}
+          // here we used the bind method to pre configure this method for future calls
+          // the first parameter specifies the this keyword and the second parameter is the first parameter this function is going to receive when it's called
+          onRemoveTodo={props.onRemoveTodo.bind(null, item.id)}
+        />
       ))}
     </ul>
   );
